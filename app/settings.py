@@ -1,8 +1,25 @@
+import logging
+import os
+
 import asyncpg
 from aiohttp import web
 
 from app.picture.routes import picture_routes
 from database import db
+
+#  SETTINGS LOGGER
+log_handler = logging.FileHandler(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs/log.log'))
+console_handler = logging.StreamHandler()
+logging.basicConfig(handlers=(log_handler, console_handler),
+                    format='%(asctime)s,%(msecs)d: %(route)s: %(functionName)s: %(levelname)s: %(message)s',
+                    level=logging.INFO)
+factory = logging.getLogRecordFactory()
+logging.getLogger('concurrent').setLevel(logging.CRITICAL)
+logging.getLogger('aiohttp').setLevel(logging.CRITICAL)
+logging.getLogger('asyncio').setLevel(logging.CRITICAL)
+logging.getLogger('asyncpg').setLevel(logging.CRITICAL)
+logging.getLogger('PIL').setLevel(logging.CRITICAL)
+logging.getLogger('sqlalchemy').setLevel(logging.CRITICAL)
 
 
 async def create_app():

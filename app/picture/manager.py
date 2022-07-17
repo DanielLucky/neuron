@@ -1,4 +1,6 @@
+import inspect
 import io
+import logging
 import os
 import uuid
 from typing import Optional
@@ -37,12 +39,13 @@ async def add_picture(request: web.Request,
             image.format,
             image_quality,
         )
-
+    logging.info('Add picture in DB',
+                 extra={'route': request.path_qs,
+                        'functionName': inspect.getframeinfo(inspect.currentframe()).function})
     return Picture(**result[0])
 
 
 async def get_picture(request: web.Request, id_: str):
-
     async with request.app['db'].acquire() as connection:
         result = await connection.fetch(
             '''
@@ -52,6 +55,8 @@ async def get_picture(request: web.Request, id_: str):
             ''',
             id_
         )
-
+    logging.info('Get picture from DB',
+                 extra={'route': request.path_qs,
+                        'functionName': inspect.getframeinfo(inspect.currentframe()).function})
     if result:
         return Picture(**result[0])
