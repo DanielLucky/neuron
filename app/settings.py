@@ -1,25 +1,32 @@
+import inspect
 import logging
 import os
 
 import asyncpg
 from aiohttp import web
 
+from app.config import PATH_LOGS, PATH_SAVE_PICTURE
 from app.picture.routes import picture_routes
 from database import db
 
-#  SETTINGS LOGGER
-log_handler = logging.FileHandler(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logs/log.log'))
-console_handler = logging.StreamHandler()
-logging.basicConfig(handlers=(log_handler, console_handler),
-                    format='%(asctime)s,%(msecs)d: %(route)s: %(functionName)s: %(levelname)s: %(message)s',
-                    level=logging.INFO)
-factory = logging.getLogRecordFactory()
-logging.getLogger('concurrent').setLevel(logging.CRITICAL)
-logging.getLogger('aiohttp').setLevel(logging.CRITICAL)
-logging.getLogger('asyncio').setLevel(logging.CRITICAL)
-logging.getLogger('asyncpg').setLevel(logging.CRITICAL)
-logging.getLogger('PIL').setLevel(logging.CRITICAL)
-logging.getLogger('sqlalchemy').setLevel(logging.CRITICAL)
+logger = logging.getLogger('app')
+
+
+def init_logger():
+    # Create handlers
+    c_handler = logging.StreamHandler()
+    f_handler = logging.FileHandler(os.path.join(PATH_LOGS, 'logs.log'))
+    c_handler.setLevel(logging.INFO)
+    f_handler.setLevel(logging.INFO)
+
+    # Create formatters
+    format_ = logging.Formatter('%(asctime)s,%(msecs)d: %(route)s: %(functionName)s: %(levelname)s: %(message)s')
+    f_handler.setFormatter(format_)
+    c_handler.setFormatter(format_)
+    logger.addHandler(c_handler)
+    logger.addHandler(f_handler)
+
+    logger.setLevel(logging.INFO)
 
 
 async def create_app():
@@ -39,3 +46,13 @@ async def on_start(application):
 
 async def on_shutdown(application):
     await application['db'].close()
+
+
+# Create catalogs
+if not os.path.exists(PATH_LOGS):
+    os.mkdir(PATH_LOGS)
+
+if not os.path.exists(PATH_SAVE_PICTURE):
+    os.mkdir(PATH_SAVE_PICTURE)
+
+init_logger()

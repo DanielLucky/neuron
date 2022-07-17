@@ -3,14 +3,14 @@ import io
 import logging
 import os
 import uuid
-from typing import Optional
 
-import asyncpg
 from PIL import Image
 from aiohttp import web
 
 from app.config import PATH_SAVE_PICTURE
 from app.picture.models import Picture
+
+logger = logging.getLogger('app')
 
 
 async def add_picture(request: web.Request,
@@ -39,7 +39,7 @@ async def add_picture(request: web.Request,
             image.format,
             image_quality,
         )
-    logging.info('Add picture in DB',
+    logger.info('Add picture in DB',
                  extra={'route': request.path_qs,
                         'functionName': inspect.getframeinfo(inspect.currentframe()).function})
     return Picture(**result[0])
@@ -55,7 +55,7 @@ async def get_picture(request: web.Request, id_: str):
             ''',
             id_
         )
-    logging.info('Get picture from DB',
+    logger.info('Get picture from DB',
                  extra={'route': request.path_qs,
                         'functionName': inspect.getframeinfo(inspect.currentframe()).function})
     if result:
