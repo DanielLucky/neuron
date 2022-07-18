@@ -1,4 +1,3 @@
-# настраиваем пути, которые будут вести к нашей странице
 from aiohttp import web
 
 from app.picture import views

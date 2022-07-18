@@ -23,7 +23,7 @@ async def protect_jwt(request, handler):
                 if user_model:
                     request['user'].update({'user_model': user_model})
                     return await handler(request)
-            except jwt.exceptions.InvalidSignatureError as _ex:
+            except jwt.exceptions.PyJWTError:
                 return web.Response(body=json.dumps({'error_message': 'token is not valid'}), status=401)
 
         return web.Response(body=json.dumps({'error_message': 'token not found'}), status=401)

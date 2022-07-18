@@ -1,7 +1,6 @@
 import logging
 import os
 
-import jwt
 import asyncpg
 from aiohttp import web
 
