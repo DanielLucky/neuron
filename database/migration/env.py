@@ -28,6 +28,7 @@ sys.path.append(ROOT_PATH)
 
 from database.db import Base
 from app.picture.models import *
+from app.user.models import *
 target_metadata = Base.metadata
 
 

@@ -27,8 +27,8 @@ async def add_picture(request: web.Request,
         result = await connection.fetch(
             '''
                 INSERT INTO 
-                picture (id_slack, picture, picture_path, width, height, format, quality) 
-                VALUES ($1, $2, $3, $4, $5, $6, $7)
+                picture (id_slack, picture, picture_path, width, height, format, quality, user_id) 
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
                 returning *;
             ''',
             str(id_slack),
@@ -38,6 +38,7 @@ async def add_picture(request: web.Request,
             image.height,
             image.format,
             image_quality,
+            request['user'].get('user_model').id
         )
     logger.info('Add picture in DB',
                  extra={'route': request.path_qs,

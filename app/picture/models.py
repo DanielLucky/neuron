@@ -18,6 +18,7 @@ class Picture(Base):
     width = Column(Integer, nullable=True)
     height = Column(Integer, nullable=True)
 
+    user_id = Column(Integer, ForeignKey("user.id", ondelete="SET NULL"), nullable=True)
     created_at = Column(DateTime, server_default=func.now())
 
     def to_json(self):
