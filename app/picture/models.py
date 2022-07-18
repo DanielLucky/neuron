@@ -1,7 +1,7 @@
 import json
 
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, LargeBinary,  func
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, LargeBinary, func
+
 from database.db import Base
 
 
@@ -9,10 +9,10 @@ class Picture(Base):
     __tablename__ = "picture"
 
     id = Column(Integer, primary_key=True)
-    id_slack = Column(String(length=36), nullable=True)
-    picture = Column(LargeBinary, nullable=True)
-    picture_path = Column(String(255), nullable=True)  # TODO:изменить на false
-    format = Column(String(length=10), nullable=True)
+    id_slack = Column(String(length=36), nullable=False)
+    picture = Column(LargeBinary, nullable=False)
+    picture_path = Column(String(255), nullable=False)
+    format = Column(String(length=10), nullable=False)
 
     quality = Column(Integer, nullable=True)
     width = Column(Integer, nullable=True)

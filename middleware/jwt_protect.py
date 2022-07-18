@@ -25,7 +25,8 @@ async def protect_jwt(request, handler):
                     return await handler(request)
             except jwt.exceptions.InvalidSignatureError as _ex:
                 return web.Response(body=json.dumps({'error_message': 'token is not valid'}), status=401)
-        return web.Response(body=json.dumps({'error_message': 'user not found'}), status=401)
+
+        return web.Response(body=json.dumps({'error_message': 'token not found'}), status=401)
 
     return await handler(request)
 

@@ -7,7 +7,7 @@ import PIL
 from PIL import Image
 from aiohttp import web
 
-from app.config import PATH_LOGS
+from app.config import PATH_LOGS, LOG_FILE
 from app.picture import manager
 
 logger = logging.getLogger('app')
@@ -111,7 +111,7 @@ async def get_logs(request: web.Request):
     :return:
     """
     try:
-        with open(PATH_LOGS, "r") as f:
+        with open(PATH_LOGS+LOG_FILE, "r") as f:
             if tail := request.rel_url.query.get('tail'):
                 f.seek(0, 2)
                 fsize = f.tell()

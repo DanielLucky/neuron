@@ -5,7 +5,7 @@ import jwt
 import asyncpg
 from aiohttp import web
 
-from app.config import PATH_LOGS, PATH_SAVE_PICTURE
+from app.config import PATH_LOGS, PATH_SAVE_PICTURE, LOG_FILE
 from app.picture.routes import picture_routes
 from database import db
 from middleware import jwt_protect
@@ -17,7 +17,7 @@ logger = logging.getLogger('app')
 def init_logger():
     # Create handlers
     c_handler = logging.StreamHandler()
-    f_handler = logging.FileHandler(os.path.join(PATH_LOGS, 'logs.log'))
+    f_handler = logging.FileHandler(os.path.join(PATH_LOGS, LOG_FILE))
     c_handler.setLevel(logging.INFO)
     f_handler.setLevel(logging.INFO)
 
