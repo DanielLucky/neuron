@@ -2,7 +2,7 @@
 Тестовое задание
 
 
-Запуск
+Запуск в контейнере
 ----------
 
 Поднимите docker-compose:
@@ -14,7 +14,7 @@ $ docker-compose up
 Локальный запуск
 ----------
 
-1. Поднимите docker-compose:
+1. Поднимите PostrgeSQL в docker-compose:
 
 ```no-highlight
 $ docker-compose up db
