@@ -4,7 +4,7 @@ import os
 import asyncpg
 from aiohttp import web
 
-from app.config import PATH_LOGS, PATH_SAVE_PICTURE, LOG_FILE
+from app.config import PATH_LOGS, LOG_FILE
 from app.picture.routes import picture_routes
 from database import db
 from middleware import jwt_protect
@@ -50,12 +50,5 @@ async def on_start(application):
 async def on_shutdown(application):
     await application['db'].close()
 
-
-# Create catalogs
-if not os.path.exists(PATH_LOGS):
-    os.mkdir(PATH_LOGS)
-
-if not os.path.exists(PATH_SAVE_PICTURE):
-    os.mkdir(PATH_SAVE_PICTURE)
 
 init_logger()

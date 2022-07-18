@@ -8,5 +8,12 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
+
+  api:
+    build: .
+    container_name: api
+    volumes:
+      - ./app/picture/data:/code/app/picture/data
+      - ./app/picture/logs:/code/app/picture/logs
     ports:
-      - "5432:5432"
+      - "8080:8080"
