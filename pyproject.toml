@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "neuron"
+version = "0.1.0"
+description = ""
+authors = ["dl <danil.spb.it@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+asyncpg = "^0.26.0"
+aiohttp = "^3.8.1"
+Pillow = "^9.2.0"
+alembic = "^1.8.1"
+psycopg2-binary = "^2.9.3"
+PyJWT = "^2.4.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
