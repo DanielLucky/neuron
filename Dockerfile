@@ -11,6 +11,6 @@ RUN pip install poetry
 RUN poetry lock --no-update; poetry export -f requirements.txt > requirements.txt
 RUN pip install -r requirements.txt
 # Миграции в бд
-RUN cd database/; alembic revision --autogenerate -m "Initial"; alembic upgrade head; cd ..
+# RUN cd database/; alembic revision --autogenerate -m "Initial"; alembic upgrade head; cd ..
 # команда, выполняемая при запуске контейнера
-CMD [ "python", "main.py"]
+# CMD [ "python", "main.py"]

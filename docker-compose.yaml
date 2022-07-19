@@ -8,6 +8,8 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
+    ports:
+      - "5432:5432"
 
   api:
     build: .
@@ -17,3 +19,6 @@ services:
       - ./app/picture/logs:/code/app/picture/logs
     ports:
       - "8080:8080"
+    depends_on:
+      - db
+    command: bash -c 'cd database/; alembic revision --autogenerate -m "Initial"; alembic upgrade head; cd ..; python main.py'
